@@ -1,10 +1,44 @@
+button{
+  border-radius: 3px;
+  margin:5px;
+}
+button:hover{
+  background-color:beige;
+}
+form{
+  display:inline-block;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+h1{
+  font-size: 23px;
+}
+input{
+  display:inline-block;
+  width:250px;
+  border-radius: 3px;
+}
+img{
+  width:40px;
+}
+label{
+  display:inline-block;
+  width:110px;
+}
+select{
+  width:250px;
+  border-radius: 3px;
+  height: 25px;
+}
+span{
+  color:red;
+}
 table{
   width:598px;
   margin-left: auto;
   margin-right: auto;
   border-collapse:collapse;
 }
-
 th,td{
   text-align: center;
   border-bottom:1px solid gray;
@@ -13,80 +47,10 @@ th,td{
 tr:nth-child(odd) td{
   background-color: gainsboro;
 }
-h1{
-  font-size: 23px;
-}
-.container{
-  width:600px;
-  /* text-align: center;  */
-  margin:0 auto;
-} 
-.sarch{
-  width: 600px;
-  text-align: center; 
-  margin:0 auto;
-}
-form{
-  margin-top: 5px;
-  margin-bottom: 5px;
-  display:inline-block;
-}
-input{
-  width:250px;
-  border-radius: 3px;
-  display:inline-block;
-}
-select{
-  width:250px;
-  border-radius: 3px;
-  height: 25px;
-}
 textarea{
   width:250px;
   border-radius: 3px;
 }
-button{
-  border-radius: 3px;
-  margin:5px;
-}
-button:hover{
-  background-color:beige;
-}
-.sarch-btn{
-  border:1px solid gray;
-  background-color: gainsboro;
-}
-
-.entry-btn{
-  border: none;
-  background-color: orange;
-}
-.update-btn{
-  border: none;
-  background-color: orange;
-}
-
-.more-btn{
-  border: none;
-  background-color: skyblue;
-  color: blue;
-}
-
-.delete-btn{
-  border: none;
-  background-color: red;
-  color:white;
-}
-.return-btn{
-  border: none;
-  background-color: skyblue;
-  color:blue;
-}
-.lists{
-  height: 400px;
-  border: 1px solid gray;
-}
-
 ul,li{
   list-style:none;
   text-align: left;
@@ -94,21 +58,28 @@ ul,li{
   margin:0px;
   padding:5px 0;
 }
-label{
-  display:inline-block;
-  width:110px;
-}
-span{
-  color:red;
-}
+
+
 
 .btn-section{
   margin: 30px 0 0 0;
 }
-.new-contents{
-  width: 400px;
+.container{
+  width:600px;
   margin:0 auto;
-  
+} 
+.delete-btn{
+  border: none;
+  background-color: red;
+  color:white;
+}
+.entry-btn{
+  border: none;
+  background-color: orange;
+}
+.error{
+  color:red;
+  font-size:12px;
 }
 .form_frame{
   width:400px;
@@ -116,40 +87,57 @@ span{
   padding: 20px;
   border-radius: 3px;
 }
-.section{
-  display:inline-block;
-  border: 1px solid gray;
-  width: 230px;
-  border-radius: 3px;
-}
-img{
-  width:40px;
-}
-.error{
-  color:red;
-  font-size:12px;
-}
-/* .contents_header{
-
-} */
 .header_btn{
-  float:right;
   text-align: right;
-  
+  float:right;
+}
+.lists{
+  height: 420px;
+  border: 1px solid gray;
 }
 .logout_btn{
   background-color: white;
   border: 1px solid gray;
 }
-
 .list_h1{
   display: inline;
 }
-
+.more-btn{
+  border: none;
+  background-color: skyblue;
+  color: blue;
+}
+.new-contents{
+  width: 400px;
+  margin:0 auto;
+}
 .pagination{
   text-align: center;
 }
 .pagination li{
   display: inline-block;
- 
+}
+.return-btn{
+  border: none;
+  background-color: skyblue;
+  color:blue;
+}
+.sarch{
+  text-align: center; 
+  width: 600px;
+  margin:0 auto;
+}
+.sarch-btn{
+  border:1px solid gray;
+  background-color: gainsboro;
+}
+.section{
+  display:inline-block;
+  width: 230px;
+  border: 1px solid gray;
+  border-radius: 3px;
+}
+.update-btn{
+  border: none;
+  background-color: orange;
 }

@@ -14,18 +14,20 @@ use App\Http\Controllers\ItemController;
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('items',[ItemController::class,'list'])->name('post.list')->middleware('auth');
+
 Route::get('items/post/entry',[ItemController::class,'entry'])->name('post.entry');
+
 Route::post('items/post/store',[ItemController::class,'store'])->name('post.store');
+
 Route::get('items/post/{item}/edit',[ItemController::class,'edit'])->name('post.edit');
+
 Route::get('items/post/{item}',[ItemController::class,'more'])->name('post.more');
+
 Route::patch('items/post/{item}/update',[ItemController::class,'update'])->name('post.update');
+
 Route::delete('items/post/{item}/destroy',[ItemController::class,'destroy'])->name('post.destroy');

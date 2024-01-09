@@ -13,25 +13,25 @@ class ItemController extends Controller
         // dd($request->brand);
         $categories=Category::all();
         // $items=Item::all();
-        if(is_null($request->keyword) && is_null($request->keyword)){
+        if (is_null($request->keyword) && is_null($request->keyword)){
             // dd($request->all());
-            $items=Item::all();
+            // $items=Item::all();
+            $items=Item::Paginate(7);
         }
-        if(is_null($request->keyword) && !empty($request->brand)){
+        if (is_null($request->keyword) && !empty($request->brand)){
             // dd($request->all());
-            $items=Item::where('category_id',$request->brand)->get();
+            $items=Item::where('category_id',$request->brand)->paginate(7);
         }
-        if(!empty($request->keyword) && !empty($request->brand)){
+        if (!empty($request->keyword) && !empty($request->brand)){
             // dd($request->all());
             $items=Item::where('product',"$request->keyword")
-            ->where('category_id',$request->brand)->get();
+            ->where('category_id',$request->brand)->gpaginate(7);
         }
-        if(!empty($request->keyword) && empty($request->brand) ){
+        if (!empty($request->keyword) && empty($request->brand) ){
             // dd($request->all());
-                $items=Item::where('product',"$request->keyword")->get();
+                $items=Item::where('product',"$request->keyword")->paginate(7);
         }
         
-        $items=Item::Paginate(7);
         return view('list',['items'=>$items,'categories'=>$categories]);
     }
 
@@ -60,11 +60,11 @@ class ItemController extends Controller
         $post->price=$request->price;
         $post->stock=$request->stock;
 
-        if(isset($request->image_path)){
+        if (isset($request->image_path)){
             $file_name=$request->image_path->getClientOriginalName();
             $post->image_path=$request->file('image_path')->storeAs('storage/storage/images',$file_name);
         }
-        if(isset($request->comment)){
+        if (isset($request->comment)){
             $post->comment=$request->comment;
         }else{
             $post->comment="コメントはありません";
@@ -86,7 +86,7 @@ class ItemController extends Controller
         $item->category_id=$request->brand_id;
         $item->price=$request->price;
         $item->stock=$request->stock;
-        if(isset($request->image_path)){
+        if (isset($request->image_path)){
             $file_name=$request->image_path->getClientOriginalName();
             $item->image_path=$request->file('image_path')->storeAs('storage/storage/images',$file_name);
         }

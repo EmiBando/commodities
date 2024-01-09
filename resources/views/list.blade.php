@@ -14,27 +14,16 @@
                 <div class="header_btn">
                     <button class="logout_btn" onclick="event.preventDefault();
                         document.getElementById('logout-form').submit();">ログアウト</button>
-                    <!-- <a href="{{ route('logout') }}"
-                        onclick="event.preventDefault();
-                        document.getElementById('logout-form').submit();">
-                        {{ __('Logout') }}
-                    </a> -->
                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                         @csrf
                     </form>
                 </div>
-                <!-- <button class="logout_btn" onclick="event.preventDefault();
-                    document.getElementById('logout-form').submit();">ログアウト</button>
-               
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                    @csrf
-                </form> -->
+              
             </div>
             <form method="get" action="{{route('post.list')}}" >
                 @csrf
                 <div class="sarch">
                     <input type="text" name="keyword" " placeholder="検索キーワード">
-            
                     <select id="brand" name="brand">
                         <option velue="" selected disabled>メーカー名</option>
                         @foreach ($categories as $category)
@@ -83,7 +72,6 @@
                     </tbody>
                 </table>
             </div>
-            
         </div>
     </div>
     {{$items->links('pagination::bootstrap-4')}}
