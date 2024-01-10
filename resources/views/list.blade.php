@@ -55,7 +55,7 @@
                                 <td>{{$item->id}}</td>
                                 <td><img src="{{asset($item->image_path)}}"></td>
                                 <td>{{$item->product}}</td>
-                                <td>{{$item->price}}</td>
+                                <td>{{$item->price}}円</td>
                                 <td>{{$item->stock}}</td>
                                 <td>{{$item->category->brand}}</td>
                                 <td>

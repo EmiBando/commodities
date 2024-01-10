@@ -31,7 +31,7 @@
                     </li>
                     <li>
                         <div>
-                            <label for="price">価格<span>*</span></label>
+                            <label for="price">価格</label>
                             <div class="section">
                                 {{$item->price}}
                             </div>
@@ -39,7 +39,7 @@
                     </li>
                     <li>
                         <div>
-                            <label for="stock">在庫<span>*</span></label>
+                            <label for="stock">在庫</label>
                             <div class="section">
                                 {{$item->stock}}
                             </div>
