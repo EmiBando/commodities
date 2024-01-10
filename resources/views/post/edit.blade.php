@@ -16,14 +16,14 @@
                 <ul>
                     <li>
                         <div>
-                            <label for="product">商品名</label>
+                            <label for="product">商品名<span>*</span></label>
                             <input type="text" name="product" value="{{old('product',$item->product)}}">
 
                         </div>
                     </li>
                     <li>
                         <div>
-                            <label for="brand">メーカー名</label>
+                            <label for="brand">メーカー名<span>*</span></label>
                               <!-- <div class="section"> -->
                                 <select name="brand_id">
                                   @foreach ($categories as $category)
@@ -42,13 +42,13 @@
                     </li>
                     <li>
                         <div>
-                            <label for="price">価格</label>
+                            <label for="price">価格<span>*</span></label>
                             <input type="text" name="price" value="{{old('price',$item->price)}}">
                         </div>
                     </li>
                     <li>
                         <div>
-                            <label for="stock">在庫</label>
+                            <label for="stock">在庫<span>*</span></label>
                             <input type="text" name="stock" value="{{old('stock',$item->stock)}}">
                         </div>
                     </li>
