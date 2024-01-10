@@ -24,12 +24,12 @@ class ItemController extends Controller
         }
         if (!empty($request->keyword) && !empty($request->brand)){
             // dd($request->all());
-            $items=Item::where('product',"$request->keyword")
+            $items=Item::where('product', 'LIKE', "%{$request->keyword}%")
             ->where('category_id',$request->brand)->gpaginate(7);
         }
         if (!empty($request->keyword) && empty($request->brand) ){
             // dd($request->all());
-                $items=Item::where('product',"$request->keyword")->paginate(7);
+                $items=Item::where('product', 'LIKE', "%{$request->keyword}%")->paginate(7);
         }
         
         return view('list',['items'=>$items,'categories'=>$categories]);
