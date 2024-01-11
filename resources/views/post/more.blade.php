@@ -16,16 +16,16 @@
                         <div>
                             <label for="product">商品名</label>
                             <div class="section">
-                                    {{$item->product}}
+                                    {{$product->product_name}}
                                 </div>
                                 
                         </div>
                     </li>
                     <li>
                         <div>
-                                <label for="brand">メーカー名</label>
+                                <label for="company">メーカー名</label>
                                 <div class="section">
-                                    {{$item->category->brand}}
+                                    {{$product->company->company_name}}
                                 </div>
                         </div>
                     </li>
@@ -33,7 +33,7 @@
                         <div>
                             <label for="price">価格</label>
                             <div class="section">
-                                {{$item->price}}
+                                {{$product->price}}
                             </div>
                         </div>
                     </li>
@@ -41,7 +41,7 @@
                         <div>
                             <label for="stock">在庫</label>
                             <div class="section">
-                                {{$item->stock}}
+                                {{$product->stock}}
                             </div>
                         </div>
                     </li>
@@ -51,7 +51,7 @@
                         <div>
                             <label for="pic">商品画像</label>
                             
-                            <img src="{{asset($item->image_path)}}">
+                            <img src="{{asset($product->img_path)}}">
                             
                         </div>
                     </li>
@@ -59,15 +59,15 @@
                         <div>
                             <label for="comment">コメント</label>
                             <div class="section">
-                            {{$item->comment}}
+                            {{$product->comment}}
                             </div>
                         </div>
                     </li>
                 </ul>
                 <div class="btn-section">
-                    <button class="update-btn" onclick="location.href='{{route('post.edit',$item)}}'">編集</button>
+                    <button class="update-btn" onclick="location.href='{{route('post.edit',$product)}}'">編集</button>
                 
-                    <button type="button" onclick="location.href='{{route('post.list',$item)}}'" class="return-btn">戻る</button>
+                    <button type="button" onclick="location.href='{{route('post.list',$product)}}'" class="return-btn">戻る</button>
                 </div>
             </div>
             

@@ -10,29 +10,29 @@
         <div class="new-contents">
             <h1>商品情報詳細</h1>
             <div class="form_frame">
-            <form method="post" action="{{route('post.update',$item)}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('post.update',$product)}}" enctype="multipart/form-data">
               @method('PATCH')
               @csrf
                 <ul>
                     <li>
                         <div>
                             <label for="product">商品名<span>*</span></label>
-                            <input type="text" name="product" value="{{old('product',$item->product)}}">
+                            <input type="text" name="product_name" value="{{old('product_name',$product->product_name)}}">
 
                         </div>
                     </li>
                     <li>
                         <div>
-                            <label for="brand">メーカー名<span>*</span></label>
+                            <label for="company">メーカー名<span>*</span></label>
                               <!-- <div class="section"> -->
-                                <select name="brand_id">
-                                  @foreach ($categories as $category)
+                                <select name="company_id">
+                                  @foreach ($companies as $company)
                                     <option 
-                                      value="{{$category->id}}"
+                                      value="{{$company->id}}"
                                       @selected(
-                                          $category->id==old('category_id',$item->category_id)
+                                          $company->id==old('company_id',$product->company_id)
                                       )>
-                                      {{$category->brand}}
+                                      {{$company->company_name}}
                                     </option>
                                   @endforeach  
                                 </select>
@@ -43,13 +43,13 @@
                     <li>
                         <div>
                             <label for="price">価格<span>*</span></label>
-                            <input type="text" name="price" value="{{old('price',$item->price)}}">
+                            <input type="text" name="price" value="{{old('price',$product->price)}}">
                         </div>
                     </li>
                     <li>
                         <div>
                             <label for="stock">在庫<span>*</span></label>
-                            <input type="text" name="stock" value="{{old('stock',$item->stock)}}">
+                            <input type="text" name="stock" value="{{old('stock',$product->stock)}}">
                         </div>
                     </li>
                     
@@ -57,14 +57,14 @@
                     <li>
                         <div>
                             <label for="pic">商品画像</label>
-                            <img src="{{asset($item->image_path)}}">
-                            <input type="file" name="image_path">
+                            <img src="{{asset($product->img_path)}}">
+                            <input type="file" name="img_path">
                         </div>
                     </li>
                     <li>
                         <div>
                             <label for="comment">コメント</label>
-                            <input type="text" name="comment" value="{{old('comment',$item->comment)}}">
+                            <input type="text" name="comment" value="{{old('comment',$product->comment)}}">
                         </div>
                     </li>
                 </ul>

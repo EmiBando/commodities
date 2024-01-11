@@ -24,10 +24,10 @@
                 @csrf
                 <div class="sarch">
                     <input type="text" name="keyword" " placeholder="検索キーワード">
-                    <select id="brand" name="brand">
+                    <select id="company" name="company">
                         <option velue="" selected disabled>メーカー名</option>
-                        @foreach ($categories as $category)
-                            <option value="{{$category->id}}">{{$category->brand}}</option>
+                        @foreach ($companies as $company)
+                            <option value="{{$company->id}}">{{$company->company_name}}</option>
                         @endforeach
                     </select>
                     <button class="sarch-btn">検索</button>
@@ -50,17 +50,17 @@
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($items as $item)
+                        @foreach ($products as $product)
                             <tr>
-                                <td>{{$item->id}}</td>
-                                <td><img src="{{asset($item->image_path)}}"></td>
-                                <td>{{$item->product}}</td>
-                                <td>{{$item->price}}円</td>
-                                <td>{{$item->stock}}</td>
-                                <td>{{$item->category->brand}}</td>
+                                <td>{{$product->id}}</td>
+                                <td><img src="{{asset($product->img_path)}}"></td>
+                                <td>{{$product->product_name}}</td>
+                                <td>{{$product->price}}円</td>
+                                <td>{{$product->stock}}</td>
+                                <td>{{$product->company->company_name}}</td>
                                 <td>
-                                    <button class="more-btn" onclick="location.href='{{route('post.more',$item)}}'">詳細</button>
-                                    <form method="post" action="{{route('post.destroy',$item)}}">
+                                    <button class="more-btn" onclick="location.href='{{route('post.more',$product)}}'">詳細</button>
+                                    <form method="post" action="{{route('post.destroy',$product)}}">
                                         @method('DELETE')
                                         @csrf
                                         <button class="delete-btn" >削除</button>
@@ -74,7 +74,7 @@
             </div>
         </div>
     </div>
-    {{$items->links('pagination::bootstrap-4')}}
+    {{$products->links('pagination::bootstrap-4')}}
 </body>
 </html> 
 

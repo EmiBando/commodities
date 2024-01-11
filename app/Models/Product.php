@@ -6,14 +6,14 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use App\Models\Category;
-use App\Models\Item;
+use App\Models\Company;
+use App\Models\Product;
 
-class Item extends Model
+class Product extends Model
 {
     use HasFactory;
-    public function category():BelongsTo{
-        return $this->belongsTo(Category::class);
+    public function company():BelongsTo{
+        return $this->belongsTo(Company::class);
     }
     public function author():BelongsToMany{
         return $this->belongsToMany(Author::class);

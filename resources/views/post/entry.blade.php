@@ -17,7 +17,7 @@
                         <li>
                             <div>
                             <label for="product">商品名<span>*</span></label>
-                            <input type="text" id="product" name="product" value="{{old('product')}}">
+                            <input type="text" id="product" name="product_name" value="{{old('product_name')}}">
                             @error('product')
                                 <div class="error">{{$message}}</div>
                             @enderror
@@ -25,14 +25,14 @@
                         </li>
                         <li>
                             <div>
-                                <label for="brandSelect">メーカー名<span>*</span></label>
-                                <select id="brandSelect" name="brand_id">
+                                <label for="companySelect">メーカー名<span>*</span></label>
+                                <select id="companySelect" name="company_id">
                                     <option velue="" selected disabled >メーカー名</option>
-                                    @foreach ($categories as $category)
-                                        <option value="{{$category->id}}">{{$category->brand}}</option>
+                                    @foreach ($companies as $company)
+                                        <option value="{{$company->id}}">{{$company->company_name}}</option>
                                     @endforeach
                                 </select>
-                                @error('brand_id')
+                                @error('company_id')
                                     <div class="error">{{$message}}</div>
                                 @enderror
                                <!-- <div id="selectErrorMessage"></div> -->
@@ -60,7 +60,7 @@
                         <li>
                             <div>
                             <label for="pic">商品画像</label>
-                            <input type="file" id="pic" name="image_path" value="{{old('image_path')}}">
+                            <input type="file" id="pic" name="img_path" value="{{old('img_path')}}">
                             </div>
                         </li>
                         <li>
