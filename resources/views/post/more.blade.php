@@ -14,6 +14,15 @@
                 <ul>
                     <li>
                         <div>
+                            <label for="id">ID</label>
+                            <!-- <div class="section"> -->
+                                    {{$product->id}}
+                                <!-- </div> -->
+                                
+                        </div>
+                    </li>
+                    <li>
+                        <div>
                             <label for="product">商品名</label>
                             <div class="section">
                                     {{$product->product_name}}

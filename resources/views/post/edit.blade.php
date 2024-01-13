@@ -16,6 +16,12 @@
                 <ul>
                     <li>
                         <div>
+                            <label for="id">ID</label>
+                            {{$product->id}}
+                        </div>
+                    </li>
+                    <li>
+                        <div>
                             <label for="product">商品名<span>*</span></label>
                             <input type="text" name="product_name" value="{{old('product_name',$product->product_name)}}">
 
