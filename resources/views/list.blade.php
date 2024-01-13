@@ -60,7 +60,7 @@
                                 <td>{{$product->company->company_name}}</td>
                                 <td>
                                     <button class="more-btn" onclick="location.href='{{route('post.more',$product)}}'">詳細</button>
-                                    <form method="post" action="{{route('post.destroy',$product)}}">
+                                    <form method="post" action="{{route('post.destroy',$product)}}" id="delete_post">
                                         @method('DELETE')
                                         @csrf
                                         <button class="delete-btn" >削除</button>
@@ -75,6 +75,7 @@
         </div>
     </div>
     {{$products->links('pagination::bootstrap-4')}}
+    <script src="{{'../resources/js/main.js'}}"></script> 
 </body>
 </html> 
 
