@@ -1,12 +1,13 @@
 'use script';
 
-{
-document.getElementById("delete_post").addEventListener("submit", e => {
-  e.preventDefault();
+document.querySelectorAll('.delete_post').forEach(form => {
+  form.addEventListener('submit', e => {
+      e.preventDefault();
 
-  if (!confirm('Sure to delete?')){
-    return;
-  }
-  e.target.submit();
+      if (!confirm('Sure to delete?')) {
+          return;
+      }
+
+      form.submit();
+  });
 });
-}
