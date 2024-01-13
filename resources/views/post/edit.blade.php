@@ -75,7 +75,7 @@
                     </li>
                 </ul>
                 <div class="btn-section">
-                    <button class="update-btn">編集</button>
+                    <button class="update-btn">更新</button>
                 
                     <button type="button" onclick="history.back()" class="return-btn">戻る</button>
                 </div>
