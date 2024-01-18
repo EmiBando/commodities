@@ -26,12 +26,12 @@ class productController extends Controller
         }
         if (!empty($request->keyword) && !empty($request->company)){
             // dd($request->all());
-            $products=Product::where('product', 'LIKE', "%{$request->keyword}%")
+            $products=Product::where('product_name', 'LIKE', "%{$request->keyword}%")
             ->where('company_id',$request->company)->gpaginate(7);
         }
         if (!empty($request->keyword) && empty($request->company) ){
             // dd($request->all());
-                $products=Product::where('product', 'LIKE', "%{$request->keyword}%")->paginate(7);
+                $products=Product::where('product_name', 'LIKE', "%{$request->keyword}%")->paginate(7);
         }
         
         return view('list',['products'=>$products,'companies'=>$companies]);
