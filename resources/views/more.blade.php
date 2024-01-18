@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Commodity</title>
-    <link rel="stylesheet" href="../../../public/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../../public/css/style.css" type="text/css">
 </head>
 <body>
     <div class="container">
@@ -74,9 +74,9 @@
                     </li>
                 </ul>
                 <div class="btn-section">
-                    <button class="update-btn" onclick="location.href='{{route('post.edit',$product)}}'">編集</button>
+                    <button class="update-btn" onclick="location.href='{{route('edit',$product)}}'">編集</button>
                 
-                    <button type="button" onclick="location.href='{{route('post.list',$product)}}'" class="return-btn">戻る</button>
+                    <button type="button" onclick="location.href='{{route('list',$product)}}'" class="return-btn">戻る</button>
                 </div>
             </div>
             

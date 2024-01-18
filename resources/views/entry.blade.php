@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <title>Commodity</title>
-    <link rel="stylesheet" href="../../../public/css/style.css" type="text/css">
+    <link rel="stylesheet" href="../public/css/style.css" type="text/css">
 </head>
 <body>
     
@@ -11,16 +11,17 @@
         <div class="new-contents">
             <h1>商品新規登録画面</h1>
             <div class="form_frame">
-                <form method="post" id="newForm" action="{{route('post.store')}}" enctype="multipart/form-data">
+                <form method="post" id="newForm" action="{{route('store')}}" enctype="multipart/form-data">
                     @csrf
                     <ul>
                         <li>
                             <div>
                             <label for="product">商品名<span>*</span></label>
                             <input type="text" id="product" name="product_name" value="{{old('product_name')}}">
-                            @error('product')
+                            @error('product_name')
                                 <div class="error">{{$message}}</div>
                             @enderror
+                            
                             </div>
                         </li>
                         <li>
@@ -35,6 +36,7 @@
                                 @error('company_id')
                                     <div class="error">{{$message}}</div>
                                 @enderror
+                            
                                <!-- <div id="selectErrorMessage"></div> -->
                             </div>
                         </li>
@@ -74,7 +76,7 @@
                     <div class="btn-section">
                         <button type="submit" class="entry-btn" >新規登録</button>
                     
-                        <button type="button" onclick="location.href='{{route('post.list')}}'" class="return-btn">戻る</button>
+                        <button type="button" onclick="location.href='{{route('list')}}'" class="return-btn">戻る</button>
                     </div>
                 </form>
             </div>

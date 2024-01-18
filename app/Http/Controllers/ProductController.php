@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Product;
 use App\Models\Company;
+use App\Http\Requests\ArticleRequest;
+use Illuminate\Support\Facades\DB;
 
 class productController extends Controller
 {
@@ -37,11 +39,10 @@ class productController extends Controller
 
     public function entry():View{
         $companies=Company::all();
-        return view('post.entry',['companies'=>$companies]);
+        return view('entry',['companies'=>$companies]);
     }
     public function store(Request $request){
         // dd($request->all());
- 
         $request->validate([
             'product_name'=>'required',
             'company_id'=>'required',
@@ -53,50 +54,75 @@ class productController extends Controller
             'price.required'=>'価格は必須です',
             'stock.required'=>'在庫は必須です'
         ]);
-        // dd($request->all());
-        $post=new Product();
-        $post->product_name=$request->product_name;
-        $post->company_id=$request->company_id;
-        $post->price=$request->price;
-        $post->stock=$request->stock;
-       
-        if (isset($request->img_path)){
-            $file_name=$request->img_path->getClientOriginalName();
-            $post->img_path=$request->file('img_path')->storeAs('storage/storage/images',$file_name);
+        try{
+            DB::beginTransaction();
+
+            $post=new Product();
+            $post->product_name=$request->product_name;
+            $post->company_id=$request->company_id;
+            $post->price=$request->price;
+            $post->stock=$request->stock;
+           
+            if (isset($request->img_path)){
+                $file_name=$request->img_path->getClientOriginalName();
+                $post->img_path=$request->file('img_path')->storeAs('storage/storage/images',$file_name);
+            }
+            if (isset($request->comment)){
+                $post->comment=$request->comment;
+            }else{
+                $post->comment="コメントはありません";
+            }
+            $post->save();
+
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return back();
         }
-        if (isset($request->comment)){
-            $post->comment=$request->comment;
-        }else{
-            $post->comment="コメントはありません";
-        }
-        $post->save();
-      
-        return redirect()->route('post.list');
+
+        return redirect()->route('list');
     }
     public function more(Product $product):View{
-        return view('post.more')->with(['product'=>$product]);
+        return view('more')->with(['product'=>$product]);
     }
     public function edit(Product $product):View{
         $companies=Company::all();
-        return view('post.edit')->with(['product'=>$product,'companies'=>$companies]);
+        return view('edit')->with(['product'=>$product,'companies'=>$companies]);
     }
     public function update(Request $request, Product $product){
         // dd($request->all());
-        $product->product_name=$request->product_name;
-        $product->company_id=$request->company_id;
-        $product->price=$request->price;
-        $product->stock=$request->stock;
-        if (isset($request->img_path)){
-            $file_name=$request->img_path->getClientOriginalName();
-            $product->img_path=$request->file('img_path')->storeAs('storage/storage/imgs',$file_name);
-        }
-        $product->comment=$request->comment;
-        $product->save();
 
-        return redirect()->route('post.more',$product);
+        try{
+            DB::beginTransaction();
+
+            $product->product_name=$request->product_name;
+            $product->company_id=$request->company_id;
+            $product->price=$request->price;
+            $product->stock=$request->stock;
+            if (isset($request->img_path)){
+                $file_name=$request->img_path->getClientOriginalName();
+                $product->img_path=$request->file('img_path')->storeAs('storage/storage/imgs',$file_name);
+            }
+            $product->comment=$request->comment;
+            $product->save();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return back();
+        }
+        
+
+        return redirect()->route('more',$product);
     }
     public function destroy(Product $product){
-        $product->delete();
-        return redirect()->route('post.list');
+        try{
+            DB::beginTransaction();
+            $product->delete();
+            DB::commit();
+        }catch(\Exception $e){
+            DB::rollback();
+            return back();
+        }
+        return redirect()->route('list');
     }
 }

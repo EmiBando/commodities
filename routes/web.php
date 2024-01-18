@@ -18,16 +18,16 @@ Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('products',[ProductController::class,'list'])->name('post.list')->middleware('auth');
+Route::get('products',[ProductController::class,'list'])->name('list')->middleware('auth');
 
-Route::get('products/post/entry',[ProductController::class,'entry'])->name('post.entry');
+Route::get('/entry',[ProductController::class,'entry'])->name('entry');
 
-Route::post('products/post/store',[ProductController::class,'store'])->name('post.store');
+Route::post('/store',[ProductController::class,'store'])->name('store');
 
-Route::get('products/post/{product}/edit',[ProductController::class,'edit'])->name('post.edit');
+Route::get('{product}/edit',[ProductController::class,'edit'])->name('edit');
 
-Route::get('products/post/{product}',[ProductController::class,'more'])->name('post.more');
+Route::get('{product}/more',[ProductController::class,'more'])->name('more');
 
-Route::patch('products/post/{product}/update',[ProductController::class,'update'])->name('post.update');
+Route::patch('{product}/update',[ProductController::class,'update'])->name('update');
 
-Route::delete('products/post/{product}/destroy',[ProductController::class,'destroy'])->name('post.destroy');
+Route::delete('{product}/destroy',[ProductController::class,'destroy'])->name('destroy');

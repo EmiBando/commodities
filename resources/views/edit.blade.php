@@ -10,7 +10,7 @@
         <div class="new-contents">
             <h1>商品情報詳細</h1>
             <div class="form_frame">
-            <form method="post" action="{{route('post.update',$product)}}" enctype="multipart/form-data">
+            <form method="post" action="{{route('update',$product)}}" enctype="multipart/form-data">
               @method('PATCH')
               @csrf
                 <ul>
@@ -75,7 +75,7 @@
                     </li>
                 </ul>
                 <div class="btn-section">
-                    <button class="update-btn">編集</button>
+                    <button class="update-btn">更新</button>
                 
                     <button type="button" onclick="history.back()" class="return-btn">戻る</button>
                 </div>

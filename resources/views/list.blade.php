@@ -20,7 +20,7 @@
                 </div>
               
             </div>
-            <form method="get" action="{{route('post.list')}}" >
+            <form method="get" action="{{route('list')}}" >
                 @csrf
                 <div class="sarch">
                     <input type="text" name="keyword" " placeholder="検索キーワード">
@@ -45,7 +45,7 @@
                             <th>在庫数</th>
                             <th>メーカー名</th>
                             <th>
-                                <button class="entry-btn" onclick="location.href='{{route('post.entry')}}'">新規登録</button>
+                                <button class="entry-btn" onclick="location.href='{{route('entry')}}'">新規登録</button>
                             </th>
                         </tr>
                     </thead>
@@ -59,8 +59,8 @@
                                 <td>{{$product->stock}}</td>
                                 <td>{{$product->company->company_name}}</td>
                                 <td>
-                                    <button class="more-btn" onclick="location.href='{{route('post.more',$product)}}'">詳細</button>
-                                    <form method="post" action="{{route('post.destroy',$product)}}" class="delete_post" >
+                                    <button class="more-btn" onclick="location.href='{{route('more',$product)}}'">詳細</button>
+                                    <form method="post" action="{{route('destroy',$product)}}" class="delete_post" >
                                         @method('DELETE')
                                         @csrf
                                         <button class="delete-btn" >削除</button>
