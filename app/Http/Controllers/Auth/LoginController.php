@@ -36,7 +36,7 @@ class LoginController extends Controller
     public function __construct()
     {
         $this->middleware('guest')->except('logout');
-        $this->redirectTo = route('post.list');
+        $this->redirectTo = route('list');
     }
     protected function loggedOut(\Illuminate\Http\Request $request){
         return redirect('/login');
