@@ -11,3 +11,4 @@ document.querySelectorAll('.delete_post').forEach(form => {
       form.submit();
   });
 });
+

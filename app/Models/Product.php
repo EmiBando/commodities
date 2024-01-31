@@ -8,10 +8,11 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use App\Models\Company;
 use App\Models\Product;
-
+use Kyslik\ColumnSortable\Sortable;
 class Product extends Model
 {
     use HasFactory;
+    use Sortable;
     public function company():BelongsTo{
         return $this->belongsTo(Company::class);
     }

@@ -20,6 +20,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 
 Route::get('products',[ProductController::class,'list'])->name('list')->middleware('auth');
 
+Route::get('/search',[ProductController::class,'search'])->name('search');
+// Route::get('/search', 'ProductController@search')->name('search');
+
 Route::get('/entry',[ProductController::class,'entry'])->name('entry');
 
 Route::post('/store',[ProductController::class,'store'])->name('store');
@@ -30,4 +33,4 @@ Route::get('{product}/more',[ProductController::class,'more'])->name('more');
 
 Route::patch('{product}/update',[ProductController::class,'update'])->name('update');
 
-Route::delete('{product}/destroy',[ProductController::class,'destroy'])->name('destroy');
+Route::post('/destroy',[ProductController::class,'destroy'])->name('destroy');

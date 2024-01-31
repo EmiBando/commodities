@@ -2,11 +2,16 @@
 <html lang="ja">
 <head>
     <meta charset="utf-8">
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Commodity</title>
     <link rel="stylesheet" href="css/style.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="{{ asset('js/asynchronous.js') }}" defer></script>
+    
+    
  </head>
 <body>
-                    
+<div id="homeUrl" data-url="{{ url('/') }}"></div>                
     <div class="container">
         <div class="contents">
             <div class="contents_header">
@@ -20,36 +25,46 @@
                 </div>
               
             </div>
-            <form method="get" action="{{route('list')}}" >
-                @csrf
-                <div class="sarch">
-                    <input type="text" name="keyword" " placeholder="検索キーワード">
+            <!-- <form method="get" action="{{route('list')}}" >
+                @csrf -->
+                <div id="myCompany" data-company="{{$companies}}"></div>
+                <div class="search">
+                    <input type="text" name="keyword" id="keyword" placeholder="検索キーワード">
                     <select id="company" name="company">
                         <option velue="" selected disabled>メーカー名</option>
                         @foreach ($companies as $company)
-                            <option value="{{$company->id}}">{{$company->company_name}}</option>
+                            <option value="{{$company->id}}" >{{$company->company_name}}</option>
                         @endforeach
                     </select>
-                    <button class="sarch-btn">検索</button>
+                    <div>
+                    <input type="number" name="min_price" id="minPrice" data-id="minmax" placeholder="最低価格" value="{{ request('min_price') }}">
+                    <input type="number" name="max_price" id="maxPrice" data-id="minmax" placeholder="最高価格" value="{{ request('max_price') }}">
+                  
+                    <input type="number" name="min_stock" id="minStock" data-id="minmax" placeholder="最低在庫数">
+                    <input type="number" name="max_stock" id="maxStock" data-id="minmax" placeholder="最高在庫数">
+                    </div>
+                    
+                    <button class="search-btn">検索</button>
+                    <!-- <p>{{$company}}</p> -->
                 </div>
-            </form>
+            <!-- </form> -->
             
             <div class="lists">
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <th>id @sortablelink('id','▼')</th>
                             <th>商品画像</th>
-                            <th>商品名</th>
-                            <th>価格</th>
-                            <th>在庫数</th>
-                            <th>メーカー名</th>
+                            <th>商品名@sortablelink('product_name','▼')</th>
+                            <th>価格@sortablelink('price','▼')</th>
+                            <th>在庫数@sortablelink('stock','▼')</th>
+                            <th>メーカー名@sortablelink('company_id','▼')</th>
                             <th>
                                 <button class="entry-btn" onclick="location.href='{{route('entry')}}'">新規登録</button>
                             </th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="search-result">
                         @foreach ($products as $product)
                             <tr>
                                 <td>{{$product->id}}</td>
@@ -59,11 +74,9 @@
                                 <td>{{$product->stock}}</td>
                                 <td>{{$product->company->company_name}}</td>
                                 <td>
-                                    <button class="more-btn" onclick="location.href='{{route('more',$product)}}'">詳細</button>
-                                    <form method="post" action="{{route('destroy',$product)}}" class="delete_post" >
-                                        @method('DELETE')
-                                        @csrf
-                                        <button class="delete-btn" >削除</button>
+                                    <button class="more-btn"  onclick="location.href='{{route('more',$product)}}'">詳細</button>
+                                    
+                                    <button class="delete-btn" data-product_id="{{$product->id}}">削除</button>
                                     </form>
                                 </td>
                             </tr>
@@ -74,7 +87,7 @@
             </div>
         </div>
     </div>
-    {{$products->links('pagination::bootstrap-4')}}
+    {{$products->appends(request()->query())->links('pagination::bootstrap-4')}}
     <script src="{{'../resources/js/main.js'}}"></script> 
 </body>
 </html> 

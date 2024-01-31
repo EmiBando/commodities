@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+ini_set('display_errors',1);
+
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use App\Models\Product;
@@ -14,28 +16,102 @@ class productController extends Controller
     public function list(Request $request,Product $product):View{
         // dd($request->company);
         $companies=Company::all();
-        // $products=product::all();
-        if (is_null($request->keyword) && is_null($request->keyword)){
-            // dd($request->all());
-            // $products=product::all();
-            $products=Product::Paginate(7);
-        }
-        if (is_null($request->keyword) && !empty($request->company)){
-            // dd($request->all());
-            $products=Product::where('company_id',$request->company)->paginate(7);
-        }
-        if (!empty($request->keyword) && !empty($request->company)){
-            // dd($request->all());
-            $products=Product::where('product_name', 'LIKE', "%{$request->keyword}%")
-            ->where('company_id',$request->company)->gpaginate(7);
-        }
-        if (!empty($request->keyword) && empty($request->company) ){
-            // dd($request->all());
-                $products=Product::where('product_name', 'LIKE', "%{$request->keyword}%")->paginate(7);
+        $query = Product::query();
+       
+
+    $products = $query->sortable()->paginate(7);
+
+    return view('list', ['products' => $products,'companies'=>$companies]);
+    }
+    // public function search(Request $request,Product $product){
+    //     $companies=Company::all();
+    //     $query = Product::query();
+    //     echo "aaaaa";
+
+        
+    //     $keyword = $request->input('keyword');
+    //     $company = $request->input('company');
+    //     $minPrice = $request->input('minPrice');
+    //     $maxPrice = $request->input('maxPrice');
+    //     $minStock = $request->input('minStock');
+    //     $maxStock = $request->input('maxStock');
+        
+    //     // dd($query);
+        
+    //     if($keyword != null){
+    //         echo "bbb";
+    //         $query->where('product_name', 'LIKE', "%{$keyword}%");
+           
+    //     }
+    //     if ($company != null){
+    //         $query->where('company_id',$request->company);
+    //     }
+    
+    //     if($minPrice != null){
+    //         $query->where('price', '>=', $minPrice);
+    //     }
+    
+    //     if($maxPrice != null){
+    //         $query->where('price', '<=', $maxPrice);
+    //     }
+    
+    //     if($minStock != null){
+    //         $query->where('stock', '>=', $minStock);
+    //     }
+    
+    //     if($maxStock != null){
+    //         $query->where('stock', '<=', $maxStock);
+    //     }
+        
+    //     $products = $query->sortable()->paginate(7);
+    //     var_dump($products);
+    //     dd($products);
+    //     // return view('list', ['products' => $products,'companies'=>$companies]);
+    //     return response()->json(['products' => $products,'companies'=>$companies]);
+    // }
+    public function search(Request $request, Product $product) {
+        $query = Product::query();
+        
+        $companies = Company::all();
+        
+        $keyword = $request->input('keyword');
+        $company = $request->input('company');
+        $minPrice = $request->input('minPrice');
+        $maxPrice = $request->input('maxPrice');
+        $minStock = $request->input('minStock');
+        $maxStock = $request->input('maxStock');
+        
+        if ($keyword != null) {
+            // echo "bbb";
+            $query->where('product_name', 'LIKE', "%{$keyword}%");
         }
         
-        return view('list',['products'=>$products,'companies'=>$companies]);
+        if ($company != null) {
+            
+            $query->where('company_id', $company);
+        }
+        
+        if ($minPrice != null) {
+            $query->where('price', '>=', $minPrice);
+        }
+        
+        if ($maxPrice != null) {
+            $query->where('price', '<=', $maxPrice);
+        }
+        
+        if ($minStock != null) {
+            $query->where('stock', '>=', $minStock);
+        }
+        
+        if ($maxStock != null) {
+            $query->where('stock', '<=', $maxStock);
+        }
+        
+        
+        $products = $query->sortable()->paginate(7);
+        return response()->json(['products' => $products]);
     }
+    
 
     public function entry():View{
         $companies=Company::all();
@@ -114,15 +190,25 @@ class productController extends Controller
 
         return redirect()->route('more',$product);
     }
-    public function destroy(Product $product){
+    public function destroy(Request $request){
+   
         try{
+
+            $product_id = $request->input('product_id');
+    
+            $product = Product::findOrFail($product_id); 
+            // dd($product);
             DB::beginTransaction();
-            $product->delete();
+    
+            $product->delete(); 
+    
             DB::commit();
-        }catch(\Exception $e){
+    
+            return response()->json(['success' => true]);
+        } catch(\Exception $e){
+            // dd($e);
             DB::rollback();
-            return back();
+            return response()->json(['success' => false, 'message' => '削除に失敗しました']);
         }
-        return redirect()->route('list');
     }
 }
