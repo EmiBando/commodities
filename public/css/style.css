@@ -39,9 +39,7 @@ table{
   margin-right: auto;
   border-collapse:collapse;
 }
-th{
-  text-decoration: none !important;
-}
+
 th,td{
   text-align: center;
   border-bottom:1px solid gray;
