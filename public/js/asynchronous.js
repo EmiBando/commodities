@@ -5,13 +5,13 @@ function deleteEvent(data) {
     $('#search-result').on('click', '.delete-btn', function() {
         // console.log('aaa');
 
-        var deleteConfirm = confirm('削除してよろしいでしょうか？');
+        let deleteConfirm = confirm('削除してよろしいでしょうか？');
         if(deleteConfirm == true) {
             console.log('削除非同期開始');
             console.log(data);
-            var clickEle = $(this);
-            var product_id = clickEle.attr('data-product_id');
-            var deleteTarget = clickEle.closest('tr');
+            let clickEle = $(this);
+            let product_id = clickEle.attr('data-product_id');
+            let deleteTarget = clickEle.closest('tr');
             $.ajax({
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
@@ -43,12 +43,12 @@ $(document).on('click', '.delete-btn', function(data) {
 $(function() {
     // console.log('aaa1');
     $('.search-btn').click(function(event) {
-        var product_name = $('#keyword').val();
-        var company = $('#company').val();
-        var minPrice = $('#minPrice').val();
-        var maxPrice = $('#maxPrice').val();
-        var minStock = $('#minStock').val();
-        var maxStock = $('#maxStock').val();
+        let product_name = $('#keyword').val();
+        let company = $('#company').val();
+        let minPrice = $('#minPrice').val();
+        let maxPrice = $('#maxPrice').val();
+        let minStock = $('#minStock').val();
+        let maxStock = $('#maxStock').val();
         deleteEvent();
         $.ajax({
             headers: {
@@ -69,24 +69,24 @@ $(function() {
             /* 通信成功時 */
             console.log('成功');
             // console.log(data.products); 
-            var $result = $('#search-result');
+            let $result = $('#search-result');
             $result.empty(); //結果を一度クリア
             deleteEvent();
 
             $.each(data.products.data, function(index, product) {
-                var homeUrl = document.getElementById('homeUrl').getAttribute('data-url');
-                var imageUrl = homeUrl + product.img_path;
+                let homeUrl = document.getElementById('homeUrl').getAttribute('data-url');
+                let imageUrl = homeUrl + product.img_path;
                 console.log(homeUrl);
-                var moreUrl = homeUrl + '/' + product.id + '/' + 'more';
-                var companies_data=$('#myCompany').data('company');
+                let moreUrl = homeUrl + '/' + product.id + '/' + 'more';
+                let companies_data=$('#myCompany').data('company');
                 console.log(companies_data);
-                var company_id=product.company_id - 1;
+                let company_id=product.company_id - 1;
                 console.log(company_id);
-                var company=companies_data[company_id];
+                let company=companies_data[company_id];
                 console.log(company); 
-                var company_name=company['company_name'];
+                let company_name=company['company_name'];
                 console.log(company_name);
-                var html = `
+                let html = `
                     <tr>
                         <td>${product.id}</td>
                         <td><img src="${imageUrl}"></td>
