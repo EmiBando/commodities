@@ -120,6 +120,10 @@ input[data-id='minmax']{
 .pagination li{
   display: inline-block;
 }
+.reset-btn{
+  border:1px solid gray;
+  background-color: gainsboro;
+}
 .return-btn{
   border: none;
   background-color: skyblue;

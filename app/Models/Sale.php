@@ -9,10 +9,8 @@ class Sale extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['product_id', //ここに配列で追加、編集するフィールドを入力する
-                        // 'フィールド2',
-                        // 'フィールド3',
-                          ]; //　$fillable属性を追記
+    protected $fillable = ['product_id'
+                          ]; 
 
     public function product()
     {

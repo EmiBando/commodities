@@ -45,11 +45,12 @@
                     </div>
                     
                     <button class="search-btn">検索</button>
-                    <!-- <p>{{$company}}</p> -->
+                    <button class="reset-btn">リセット</button>
+                
                 </div>
             <!-- </form> -->
             
-            <div class="lists">
+            <div class="lists" id="lists">
                 <table>
                     <thead>
                         <tr>

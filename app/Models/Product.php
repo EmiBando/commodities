@@ -13,6 +13,9 @@ class Product extends Model
 {
     use HasFactory;
     use Sortable;
+
+    public $sortable = ['id', 'product_name', 'price', 'stock', 'company_id'];
+    
     public function company():BelongsTo{
         return $this->belongsTo(Company::class);
     }

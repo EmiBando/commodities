@@ -10,68 +10,67 @@ use App\Models\Product;
 use App\Models\Company;
 use App\Http\Requests\ArticleRequest;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Kyslik\ColumnSortable\Sortable;
 
 class productController extends Controller
 {
     public function list(Request $request,Product $product):View{
-        // dd($request->company);
+        
         $companies=Company::all();
         $query = Product::query();
-       
+    //    dd($query);
+    $store_keyword=$request->session()->get('keyword');
+    $store_company=$request->session()->get('company');
+    $store_minPrice=$request->session()->get('minPrice');$store_maxPrice=$request->session()->get('maxPrice');
+    $store_minStock=$request->session()->get('minStock');
+    $store_maxStock=$request->session()->get('maxStock');
+    // echo $request->session()->get('keyword');
+    // dd($request->store_company);
+    if($store_keyword != null){
+        $query->where('product_name', 'LIKE', "%{$store_keyword}%");
+    }
+    if ($store_company != null){
+        $query->where('company_id',$store_company);
+    }
 
+    if($store_minPrice != null){
+        $query->where('price', '>=', $store_minPrice);
+    }
+
+    if($store_maxPrice != null){
+        $query->where('price', '<=', $store_maxPrice);
+    }
+
+    if($store_minStock != null){
+        $query->where('stock', '>=', $store_minStock);
+    }
+
+    if($store_maxStock != null){
+        $query->where('stock', '<=', $store_maxStock);
+    }
+    
     $products = $query->sortable()->paginate(7);
-
+    // dd($products);
     return view('list', ['products' => $products,'companies'=>$companies]);
     }
-    // public function search(Request $request,Product $product){
-    //     $companies=Company::all();
-    //     $query = Product::query();
-    //     echo "aaaaa";
+   
+    public function reset(Request $request,Product $product) {
+        $companies=Company::all();
+        $products = Product::query()->sortable()->paginate(7);
+        $request->session()->remove('keyword');
+        $request->session()->remove('company');
+        $request->session()->remove('minPrice');
+        $request->session()->remove('maxPrice');
+        $request->session()->remove('minStock');
+        $request->session()->remove('maxStock');
 
-        
-    //     $keyword = $request->input('keyword');
-    //     $company = $request->input('company');
-    //     $minPrice = $request->input('minPrice');
-    //     $maxPrice = $request->input('maxPrice');
-    //     $minStock = $request->input('minStock');
-    //     $maxStock = $request->input('maxStock');
-        
-    //     // dd($query);
-        
-    //     if($keyword != null){
-    //         echo "bbb";
-    //         $query->where('product_name', 'LIKE', "%{$keyword}%");
-           
-    //     }
-    //     if ($company != null){
-    //         $query->where('company_id',$request->company);
-    //     }
+        return response()->json(['products' => $products]);
+    }
     
-    //     if($minPrice != null){
-    //         $query->where('price', '>=', $minPrice);
-    //     }
-    
-    //     if($maxPrice != null){
-    //         $query->where('price', '<=', $maxPrice);
-    //     }
-    
-    //     if($minStock != null){
-    //         $query->where('stock', '>=', $minStock);
-    //     }
-    
-    //     if($maxStock != null){
-    //         $query->where('stock', '<=', $maxStock);
-    //     }
-        
-    //     $products = $query->sortable()->paginate(7);
-    //     var_dump($products);
-    //     dd($products);
-    //     // return view('list', ['products' => $products,'companies'=>$companies]);
-    //     return response()->json(['products' => $products,'companies'=>$companies]);
-    // }
     public function search(Request $request, Product $product) {
         $query = Product::query();
-        
+        // dd($request->all());
         $companies = Company::all();
         
         $keyword = $request->input('keyword');
@@ -80,6 +79,13 @@ class productController extends Controller
         $maxPrice = $request->input('maxPrice');
         $minStock = $request->input('minStock');
         $maxStock = $request->input('maxStock');
+
+        $request->session()->put('keyword',$keyword);
+        $request->session()->put('company',$company);
+        $request->session()->put('minPrice',$minPrice);
+        $request->session()->put('maxPrice',$maxPrice);
+        $request->session()->put('minStock',$minStock);
+        $request->session()->put('maxStock',$maxStock);
         
         if ($keyword != null) {
             // echo "bbb";
@@ -106,9 +112,13 @@ class productController extends Controller
         if ($maxStock != null) {
             $query->where('stock', '<=', $maxStock);
         }
+        if($sort = $request->sort){
+            $direction = $request->direction == 'desc' ? 'desc' : 'asc'; 
+            $query->orderBy($sort, $direction);
+        }
         
-        
-        $products = $query->sortable()->paginate(7);
+        $products = $query->paginate(7);
+        // $products = $query->sortable()->paginate(7)->appends($request->all());
         return response()->json(['products' => $products]);
     }
     
@@ -166,7 +176,7 @@ class productController extends Controller
         return view('edit')->with(['product'=>$product,'companies'=>$companies]);
     }
     public function update(Request $request, Product $product){
-        // dd($request->all());
+        dd($product);
 
         try{
             DB::beginTransaction();
@@ -191,12 +201,12 @@ class productController extends Controller
         return redirect()->route('more',$product);
     }
     public function destroy(Request $request){
-   
+        
         try{
-
             $product_id = $request->input('product_id');
-    
+           
             $product = Product::findOrFail($product_id); 
+            Log::info($product_id);
             // dd($product);
             DB::beginTransaction();
     

@@ -21,9 +21,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('products',[ProductController::class,'list'])->name('list')->middleware('auth');
 
 Route::get('/search',[ProductController::class,'search'])->name('search');
-// Route::get('/search', 'ProductController@search')->name('search');
+Route::get('/sort',[ProductController::class,'sort'])->name('sort');
 
 Route::get('/entry',[ProductController::class,'entry'])->name('entry');
+
+Route::get('/reset',[ProductController::class,'reset'])->name('reset');
 
 Route::post('/store',[ProductController::class,'store'])->name('store');
 
