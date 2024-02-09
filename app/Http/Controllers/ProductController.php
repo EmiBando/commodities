@@ -176,7 +176,7 @@ class productController extends Controller
         return view('edit')->with(['product'=>$product,'companies'=>$companies]);
     }
     public function update(Request $request, Product $product){
-        dd($product);
+        // dd($product);
 
         try{
             DB::beginTransaction();
