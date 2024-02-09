@@ -45,7 +45,7 @@
                     </div>
                     
                     <button class="search-btn">検索</button>
-                    <button class="reset-btn">リセット</button>
+                    <button class="reset-btn">絞込みリセット</button>
                 
                 </div>
             <!-- </form> -->
